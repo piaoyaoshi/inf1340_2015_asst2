@@ -24,4 +24,14 @@ def test_basic():
     assert pig_latinify("is") == "isyay"
     assert pig_latinify("apple") == "appleyay"
 
+def test_our_basic():
+    """
+    Basic test cases added.
+    """
 
+    assert pig_latinify("if") == "ifyay"            # word starts with a vowel
+    assert pig_latinify("world") == "orldway"       # vowel in middle
+    assert pig_latinify("who") == "owhay"           # vowel at the end
+    assert pig_latinify("where") == "erewhay"       # has more than one vowel
+    assert pig_latinify("why") == "whyay"           # word with no vowel
+    assert pig_latinify("") == ""                   # test empty string
