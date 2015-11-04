@@ -37,15 +37,28 @@ def find(input_string, substring, start, end):
 
 
 def multi_find(input_string, substring, start, end):
-    """
-    Describe your function
+    """(str, str, num, num) --> str
+    Return all indices in the input_string[start: end] where the substring is found.
+    Indices are displayed in a string, and separated by commas.
+    Return -1 if the substring is not found.
 
-    :param :
-    :return:
+
+    :param :input_string: a string
+            substring:    a string
+            start:        a number
+            end:          a number
+    :return:result :      a string
     :raises:
 
     """
     result = ""
 
-    return result
+    s = input_string[start:end]
+    for i in range(0, len(s) - len(substring) + 1):
+        if s[i: i + len(substring)] == substring:
+            result = result + str(i + len(input_string[:start])) + ','
 
+    if len(result) > 0:
+        return result[:-1]
+    else:
+        return result
