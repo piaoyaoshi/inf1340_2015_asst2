@@ -11,16 +11,14 @@ __email__ = "ses@drsusansim.org"
 __copyright__ = "2015 Susan Sim"
 __license__ = "MIT License"
 
+latin_end = "ay"
 
-def pig_latinify(word):
-    """
-    Describe your function
+english = raw_input("Enter an english word")
 
-    :param :
-    :return:
-    :raises:
+firstL = english[0]
 
-    """
-    result = ""
+latin_word = english + firstL + latin_end
 
-    return result
+latin_word = latin_word[1:]
+
+print (latin_word)
