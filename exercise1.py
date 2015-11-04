@@ -11,14 +11,20 @@ __email__ = "ses@drsusansim.org"
 __copyright__ = "2015 Susan Sim"
 __license__ = "MIT License"
 
-latin_end = "ay"
 
-english = raw_input("Enter an english word")
+def pig_latin_translator(english):
+    english = english.lower()
+    result = ""
+    vowel = "a,e,i,o,u"
+    if english[0] is vowel:
+        return result + "yay"
+    while english[0] is not vowel:
+        english[0] += (english[1:] + english[0])
+        if english[0] == vowel:
+            print result + "ay"
+        else:
+            return ""
+print pig_latin_translator("test")
 
-firstL = english[0]
 
-latin_word = english + firstL + latin_end
-
-latin_word = latin_word[1:]
-
-print (latin_word)
+def pig_latin_translator():
