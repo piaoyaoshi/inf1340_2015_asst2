@@ -36,3 +36,4 @@ def test_our_basic():
     assert pig_latinify("where") == "erewhay"       # has more than one vowel
     assert pig_latinify("why") == "whyay"           # word with no vowel
     assert pig_latinify("") == ""                   # test empty string
+    assert pig_latinify("yellow") == "ellowyay"     # test word begins with y
