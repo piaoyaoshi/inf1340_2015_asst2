@@ -33,15 +33,15 @@ def pig_latinify(word):
     for i in range(len(word)):
         if word[i] in 'aeiouAEIOU':
             vowel_index = i
-            break
+            break                  # stop the loop when the first vowel is found.
 
     # now we have vowel_i
     if len(word) > 0:
-        if vowel_index == 0:
+        if vowel_index == 0:       # word begins with a vowel
             result = word + 'yay'
-        elif vowel_index == -1:
+        elif vowel_index == -1:    # word contains no vowel, return the original word + 'ay"
             result = word + 'ay'
-        else:
+        else:                      # word has a mix of vowels and consonants
             result = word[vowel_index:] + word[0:vowel_index] + 'ay'
 
     return result
