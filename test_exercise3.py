@@ -87,7 +87,7 @@ def test_difference():
 
 def test_union_added_1():
     """
-    Test union operation.
+    Test union operation. Table1 is the GRADUATES table; Table2 only does not contain any record.
     """
     result = [["Number", "Surname", "Age"],
               [7274, "Robinson", 37],
@@ -113,16 +113,16 @@ def test_union_2():
 
 def test_intersection_added_1():
     """
-    Test intersection operation.
+    Test intersection operation.Table1 is the GRADUATES table; Table2 only does not contain any record.
     """
     result = [["Number", "Surname", "Age"]]
 
     assert is_equal(result, intersection(GRADUATES, HEADER))
 
 
-def test_difference_added_1():      # table 2 only has a header
+def test_difference_added_1():
     """
-    Test difference operation.
+    Test difference operation.Table1 is the GRADUATES table; Table2 only does not contain any record.
     """
 
     result = [["Number", "Surname", "Age"],
@@ -133,17 +133,17 @@ def test_difference_added_1():      # table 2 only has a header
     assert is_equal(result, difference(GRADUATES, HEADER))
 
 
-def test_difference_added_2():     # table 1 only has a header
+def test_difference_added_2():
     """
-    Test difference operation.
+    Test difference operation.Table1 only does not contain any record; Table2 is the GRADUATES table.
     """
 
     result = [["Number", "Surname", "Age"]]
 
     assert is_equal(result, difference(HEADER, GRADUATES))
 
-
 # ===================================== Schema are different  =========================================================
+
 
 def test_union_different_schema_1():
     """
@@ -193,11 +193,9 @@ def test_union_different_schema_2():
         assert False
 
 
-
-
 def test_intersection_different_schema_2():
     """
-    Test intersection operation. Scheme are not the same.Table2 only has a header.
+    Test intersection operation. Scheme are not the same.Table2 is empty.
     """
     try:
         intersection(MANAGERS, EMPTY)
@@ -209,7 +207,7 @@ def test_intersection_different_schema_2():
 
 def test_difference_different_schema_2():
     """
-    Test difference operation. Scheme are not the same.Table2 only has a header.
+    Test difference operation. Scheme are not the same.Table2 is empty.
     """
     try:
         difference(MANAGERS, EMPTY)
