@@ -33,7 +33,7 @@ def pig_latinify(word):
     for i in range(len(word)):
         if word[i] in 'aeiouAEIOU':
             vowel_index = i
-            break                  # stop the loop when the first vowel is found.
+            break                  # stop the loop when the first vowel is found
 
     # now we have vowel_i
     if len(word) > 0:
