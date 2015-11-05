@@ -36,7 +36,7 @@ def pig_latinify(word):
             break
 
     # now we have vowel_i
-    if len(word) > 0 and vowel_index >= -1:
+    if len(word) > 0:
         if vowel_index == 0:
             result = word + 'yay'
         elif vowel_index == -1:
