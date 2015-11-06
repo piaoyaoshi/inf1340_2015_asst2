@@ -29,11 +29,30 @@ def test_our_basic():
     """
     Basic test cases added.
     """
+    # word starts with a vowel
+    assert pig_latinify("if") == "ifyay"
+    assert pig_latinify("all") == "allyay"
 
-    assert pig_latinify("if") == "ifyay"                 # word starts with a vowel
-    assert pig_latinify("world") == "orldway"            # vowel in middle
-    assert pig_latinify("who") == "owhay"                # vowel at the end
-    assert pig_latinify("where") == "erewhay"            # has more than one vowel
-    assert pig_latinify("why") == "whyay"                # word with no vowel
-    assert pig_latinify("World") == "orldWay"            # word with vowel in middle with capitalization
-    assert pig_latinify("sugar-free") == "ugar-freesay"  # word with hyphen
+    # vowel in middle
+    assert pig_latinify("world") == "orldway"
+    assert pig_latinify("not") == "otnay"
+
+    # vowel at the end
+    assert pig_latinify("who") == "owhay"
+    assert pig_latinify("these") == "esethay"
+
+    # has more than one vowel
+    assert pig_latinify("where") == "erewhay"
+    assert pig_latinify("because") == "ecausebay"
+
+    # word with no vowel
+    assert pig_latinify("why") == "whyay"
+    assert pig_latinify("cry") == "cryay"
+
+    # word with vowel in middle with capitalization
+    assert pig_latinify("World") == "orldWay"
+    assert pig_latinify("Not") == "otNay"
+
+    # word with hyphen
+    assert pig_latinify("sugar-free") == "ugar-freesay"
+    assert pig_latinify("good-hearted") == "ood-heartedgay"

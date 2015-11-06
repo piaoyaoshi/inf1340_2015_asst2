@@ -19,11 +19,11 @@ def pig_latinify(word):
     If the word begins with a consonant, remove all the consonants from the beginning up to the first vowel and
     append them to the end of the word and append 'ay' to the end of the word.
 
-    Parameter passed in has to be an English word.
+    Precondition: Parameter word passed in has to be an English word. Y is always a consonant
 
     :param : word: a string
-    :return: a new word : a string
-    :raises:
+    :return: pig latin word : a string
+    :raises: none
 
     """
 
@@ -35,7 +35,6 @@ def pig_latinify(word):
             vowel_index = i
             break                  # stop the loop when the first vowel is found
 
-    # now we have vowel_i
     if len(word) > 0:
         if vowel_index == 0:       # word begins with a vowel
             result = word + 'yay'
@@ -45,4 +44,3 @@ def pig_latinify(word):
             result = word[vowel_index:] + word[0:vowel_index] + 'ay'
 
     return result
-
