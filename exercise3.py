@@ -15,7 +15,9 @@ __license__ = "MIT License"
 
 def union(table1, table2):
     """
-    Perform the union set operation on tables, table1 and table2.
+    Return a result list that shows result of performing the union set operation on tables, table1 and table2.
+
+    Return None if two tables do not have common record.
 
     :param table1: a table (a List of Lists)
     :param table2: a table (a List of Lists)
@@ -26,16 +28,21 @@ def union(table1, table2):
 
     result = table1[:]
 
-    if check_headers(table1[0], table2[0]):
-        for record in table2[1:]:  # if table2 has no record (only has a header), table2[1:] gives empty list
+    if check_headers(table1[0], table2[0]):  # use helper function to check schema.
+        for record in table2[1:]:            # if table2 has no record (only has a header), table2[1:] gives empty list
             if record not in result:
                 result.append(record)
-    return result
+    if result > 1:
+        return result
+    return None
 
 
 def intersection(table1, table2):
     """
-    Return a new_table contains rows that appear both in table1 and table2.
+    Return a resulting list that contains rows that appear both in table1 and table2.
+
+    Return None if two tables do not have common record.
+
     :param table1: a table (a List of Lists)
     :param table2: a table (a List of Lists)
     :return: the resulting table
@@ -49,12 +56,17 @@ def intersection(table1, table2):
         for record in table1:
             if record in table2:
                 result.append(record)   # headers included after the first iteration
-    return result
+    if len(result) > 1:                 # if there is any records/row (header does not include)
+        return result
+    return None
 
 
 def difference(table1, table2):
     """
-    Return a new_table contains rows that appear in table1 but not in table2.
+    Return a resulting list that contains rows that appear in table1 but not in table2.
+
+    Return None if two tables do not have common record.
+
     :param table1: a table (a List of Lists)
     :param table2: a table (a List of Lists)
     :return: the resulting table
@@ -68,7 +80,9 @@ def difference(table1, table2):
         for record in table1:
             if record not in table2:
                 result.append(record)
-    return result
+    if len(result) > 1:
+        return result
+    return None
 
 
 #####################
@@ -94,6 +108,7 @@ def check_headers(header1, header2):
     """
     Return True if header1 and header2 have same number of columns, same names and same order.
     Raise MismatchedAttributesException otherwise.
+
     :param header1: headers (a List of strings)
     :param header2: headers (a List of strings)
     :return: boolean
