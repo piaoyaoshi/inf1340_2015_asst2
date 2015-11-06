@@ -31,7 +31,7 @@ def find(input_string, substring, start, end):
 
     target_str = input_string[start:end]                      # use standard slice notation.
 
-    for i in range(0, len(target_str) - len(substring) + 1):  # no need to check remaining str if length < substring
+    for i in range(0, len(target_str) - len(substring) + 1):  # no need to check if len(remaining str) < len(substring)
         if target_str[i: i + len(substring)] == substring:    # compare strings in whole.
             return i + len(input_string[:start])
 
@@ -44,7 +44,7 @@ def multi_find(input_string, substring, start, end):
     Indices are displayed in a string, and separated by commas.
     Arguments start and end are required and interpreted as in slice notation.
 
-    Return -1 if the substring is not found.
+    Return an empty string if the substring is not found.
 
     :param :input_string: a string
             substring:    a string
@@ -52,18 +52,14 @@ def multi_find(input_string, substring, start, end):
             end:          an int
     :return:result :      a string
     :raises:none
-
     """
 
-    result = ""
-    target_str = input_string[start:end]
-
-    for i in range(0, len(target_str) - len(substring) + 1):
-        if target_str[i: i + len(substring)] == substring:
-            position = str(i + len(input_string[:start]))
-            result += position + ','
-
-    if len(result) > 0:
-        return result[:-1]   # do not include the last comma.
-    else:
-        return result
+    result = ''
+    i = find(input_string, substring, start, end)  # call function find to avoid code duplication.
+    while i != -1:
+        result += str(i) + ','
+        # search again from the 1 position left of previous index (to avoid infinite loop).
+        i = find(input_string, substring, start + i + 1, end)
+    if len(result):                               # condition is true if result is not an empty string, otherwise false.
+        return result[:-1]                        # do not include the last comma
+    return result
