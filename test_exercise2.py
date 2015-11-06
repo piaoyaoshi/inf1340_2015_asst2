@@ -32,7 +32,7 @@ def test_find_added():
     """
     Test find function.
     """
-    # substring is found:
+    # =============  substring is found ===================================================
 
     # end index provided is out of range
     assert find("This is an ex-parrot", "parrot", 0, 25) == 14
@@ -40,37 +40,35 @@ def test_find_added():
 
     # substring appears in several locations
     assert find("This is an ex-parrot parrot", "parrot", 0, 20) == 14
-    assert find("Happy anniversary Happy anniversary", "ann", 0, 35) == 6
+    assert find("Happy annnnnnnn", "nn", 0, 14) == 7
 
     # end, start contain negative numbers but slicing notation does not give empty result
     assert find("This is an ex-parrot.", "parrot", 0, -1) == 14
     assert find("This is an ex-parrot.", "parrot", -20, -1) == 14
     assert find("Happy anniversary", "ann", 0, -2) == 6
-    assert find("Happy anniversary", "ann", -15, -1) == 6
+    assert find("Happy anniversary", "n", -10, -9) == 7
 
-    # substring is not found:
-
-    # start index provided is out of range.
-    assert find("This is an ex-parrot", "parrot", 20, 25) == -1
-    assert find("Happy anniversary", "ann", 17, 25) == -1
+    # =============  substring is not found ===============================================
 
     # slicing notation gives empty result
-    assert find("This is an ex-parrot", "parrot", 15, -6) == -1
+    assert find("This is an ex-parrot", "parrot", 20, 25) == -1  # start index is out of range
+    assert find("Happy anniversary", "ann", 17, 25) == -1
+    assert find("This is an ex-parrot", "parrot", 15, -6) == -1  # start index in the left side of the end index
     assert find("This is an ex-parrot", "parrot", 20, 0) == -1
     assert find("Happy anniversary", "ann", 6, -11) == -1
     assert find("Happy anniversary", "ann", -5, -6) == -1
 
     # input_string[start:end] not includes substring
-    assert find("This is an ex-parrot", "parrot", 0, 14) == -1   # end is not included.
+    assert find("This is an ex-parrot", "parrot", 0, 14) == -1   # end is not included
     assert find("Happy anniversary", "ann", 0, 8) == -1
-    assert find("This is an ex-parrot", "parrot", 14, 19) == -1  # ( end - start ) is less than the len(substring)
+    assert find("This is an ex-parrot", "parrot", 14, 19) == -1  # ( end - start ) is less than the length of substring
     assert find("Happy anniversary", "ann", 6, 8) == -1
 
     # case sensitive
     assert find("This is an ex-Parrot", "parrot", 0, 20) == -1
     assert find("Happy anniversary", "Ann", 0, 16) == -1
 
-    # word is separated by other notations:
+    # word is separated by other notations; word is not wholly found.
     assert find("This is an par r o t", "parrot", 0, 20) == -1
     assert find("Happy anniversary", "a nn", 0, 16) == -1
 
@@ -79,34 +77,35 @@ def test_multi_find_added():
     """
     Test multi_find function.
     """
-    # substring is found:
+    # =============  substring is found ==================================================
 
     # end index provided is out of range
     assert multi_find("Ni! Ni! Ni! Ni!", "Ni!", 1, 25) == "4,8,12"
-    assert multi_find("Happy anniversary Happy anniversary", "ann", 0, 38) == "6,24"
+    assert multi_find("Happy annnnn", "nn", 0, 25) == "7,8,9,10"
 
-    # substring appears one time; case sensitive
+    # case sensitive
     assert multi_find("NI! NI! NI! Ni!", "Ni!", 0, 15) == "12"
-    assert multi_find("Happy anniversary Happy Anniversary", "Ann", 0, 34) == "24"
+    assert multi_find("Happy anNnnn", "nn", 0, 11) == "9"
 
-    # end, start contain negative numbers, slicing notation does not give empty result
+    # end or start contain negative numbers, slicing notation does not give empty result
     assert multi_find("Ni! Ni! Ni! Ni!!", "Ni", 0, -1) == "0,4,8,12"
     assert multi_find("Ni! Ni! Ni! Ni!!", "Ni", -16, -1) == "0,4,8,12"
-    assert multi_find("Happy anniversary Happy anniversary", "ann", 0, -1) == "6,24"
-    assert multi_find("Happy anniversary Happy anniversary", "ann", -30, -5) == "6,24"
+    assert multi_find("Happy annnnn.", "nn", 0, -1) == "7,8,9,10"
+    assert multi_find("Happy annnnn", "n", -4, -3) == "8"
 
-    # substring is not found:
+    # ============  substring is not found ==============================================
 
-    # slicing notation gives empty result, (end index is not included)
-    assert multi_find("Ni! Ni! Ni! Ni!!", "Ni", 9, -9) == ""
+    # slicing notation gives empty result.
+    assert multi_find("Ni! Ni! Ni! Ni!!", "Ni", 9, -7) == ""
     assert multi_find("Ni! Ni! Ni! Ni!!", "Ni", 0, 1) == ""
-    assert multi_find("Happy anniversary Happy anniversary", "ann", -15, 15) == ""
+    assert multi_find("Happy annnnn", "nn", -7, 5) == ""
+    assert multi_find("Happy annnnn", "n", -3, -4) == ""
 
-    # (end - start) is less than the length of substring
+    # (end - start) is less than the length of substring; Substring not in input_string[start:end].
     assert multi_find("Ni! Ni! Ni! Ni!!", "Ni!", 0, 2) == ""
-    assert multi_find("Happy anniversary Happy anniversary", "ann", 6, 8) == ""
+    assert multi_find("Happy annnnn", "nnn", 7, 9) == ""
 
-    # word is separated by other notations:
+    # word is separated by other notations; word is not wholly found.
     assert multi_find("N!i N!i N!i N!i!", "Ni", 0, 15) == ""
     assert multi_find("Happy anniversary Happy anniversary", "ann!", 0, 38) == ""
 
