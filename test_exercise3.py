@@ -35,13 +35,19 @@ STAFFS = [["Number", "First Name", "Surname", "Date of Birth"],
           [9297, "Andy", "O'Malley", "56"],
           [7432, "Barbara", "O'Malley", "39"],
           [9824, "Carl", "Darkes", "38"]]
+
+EMPLOYEES = [["Number", "Surname", "Age"],
+             [1000, "Ann", 20],
+             [1001, "Mary", 22],
+             [1002, "Ming", 60]]
+
 #####################
 # HELPER FUNCTIONS ##
 #####################
 
 
 def is_equal(t1, t2):
-    return set(map(tuple, t1)) == set(map(tuple, t2))
+    return sorted(t1) == sorted(t2)
 
 
 ###################
@@ -82,12 +88,62 @@ def test_difference():
 
     assert is_equal(result, difference(GRADUATES, MANAGERS))
 
+
 # ==================================== Test cases added, schema are the same ==========================================
 
 
-def test_union_added_1():
+def test_union_graduates_employees():
     """
-    Test union operation. Table1 is the GRADUATES table; Table2 only does not contain any record.
+    Test union operation. Table1 is the GRADUATES table; Table2 is the EMPLOYEES table.
+    """
+    result = [["Number", "Surname", "Age"],
+              [7274, "Robinson", 37],
+              [7432, "O'Malley", 39],
+              [9824, "Darkes", 38],
+              [1000, "Ann", 20],
+              [1001, "Mary", 22],
+              [1002, "Ming", 60]]
+
+    assert is_equal(result, union(GRADUATES, EMPLOYEES))
+
+
+def test_intersection_graduates_employees():
+    """
+    Test intersection operation.Table1 is the GRADUATES table; Table2 is the EMPLOYEES table.
+    """
+
+    assert intersection(GRADUATES, EMPLOYEES) is None
+
+
+def test_difference_graduates_employees():
+    """
+    Test difference operation.Table1 is the GRADUATES table; Table2 is the EMPLOYEES table.
+    """
+
+    result = [["Number", "Surname", "Age"],
+              [7274, "Robinson", 37],
+              [7432, "O'Malley", 39],
+              [9824, "Darkes", 38]]
+
+    assert is_equal(result, difference(GRADUATES, EMPLOYEES))
+
+
+def test_difference_employees_graduates():
+    """
+    Test difference operation.Table1 is the EMPLOYEES table; Table2 is the GRADUATES table.
+    """
+
+    result = [["Number", "Surname", "Age"],
+              [1000, "Ann", 20],
+              [1001, "Mary", 22],
+              [1002, "Ming", 60]]
+
+    assert is_equal(result, difference(EMPLOYEES, GRADUATES))
+
+
+def test_union_graduates_header():
+    """
+    Test union operation. Table1 is the GRADUATES table; Table2 only has header, does not contain any record.
     """
     result = [["Number", "Surname", "Age"],
               [7274, "Robinson", 37],
@@ -97,32 +153,16 @@ def test_union_added_1():
     assert is_equal(result, union(GRADUATES, HEADER))
 
 
-def test_union_2():
+def test_intersection_graduates_header():
     """
-    Test union operation. Table 1 is the MANAGERS table; Table 2 is the GRADUATES table
+    Test intersection operation.Table1 is the GRADUATES table; Table2 only has header, does not contain any record.
     """
-
-    result = [["Number", "Surname", "Age"],
-              [9297, "O'Malley", 56],
-              [7432, "O'Malley", 39],
-              [9824, "Darkes", 38],
-              [7274, "Robinson", 37]]
-
-    assert is_equal(result, union(MANAGERS, GRADUATES))
+    assert intersection(GRADUATES, HEADER) is None
 
 
-def test_intersection_added_1():
+def test_difference_graduates_header():
     """
-    Test intersection operation.Table1 is the GRADUATES table; Table2 only does not contain any record.
-    """
-    result = [["Number", "Surname", "Age"]]
-
-    assert is_equal(result, intersection(GRADUATES, HEADER))
-
-
-def test_difference_added_1():
-    """
-    Test difference operation.Table1 is the GRADUATES table; Table2 only does not contain any record.
+    Test difference operation.Table1 is the GRADUATES table; Table2 only has header, does not contain any record.
     """
 
     result = [["Number", "Surname", "Age"],
@@ -133,14 +173,12 @@ def test_difference_added_1():
     assert is_equal(result, difference(GRADUATES, HEADER))
 
 
-def test_difference_added_2():
+def test_difference_header_graduates():
     """
     Test difference operation.Table1 only does not contain any record; Table2 is the GRADUATES table.
     """
+    assert difference(HEADER, GRADUATES) is None
 
-    result = [["Number", "Surname", "Age"]]
-
-    assert is_equal(result, difference(HEADER, GRADUATES))
 
 # ===================================== Schema are different  =========================================================
 
