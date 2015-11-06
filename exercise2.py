@@ -58,8 +58,8 @@ def multi_find(input_string, substring, start, end):
     i = find(input_string, substring, start, end)  # call function find to avoid code duplication.
     while i != -1:
         result += str(i) + ','
-        # search again from the 1 position left of previous index (to avoid infinite loop).
-        i = find(input_string, substring, start + i + 1, end)
+        # search again from 1 position left of the previous index (to avoid infinite loop).
+        i = find(input_string, substring, i + 1, end)
     if len(result):                               # condition is true if result is not an empty string, otherwise false.
         return result[:-1]                        # do not include the last comma
     return result
