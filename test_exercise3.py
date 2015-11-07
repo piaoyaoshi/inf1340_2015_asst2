@@ -27,9 +27,11 @@ MANAGERS = [["Number", "Surname", "Age"],
             [7432, "O'Malley", 39],
             [9824, "Darkes", 38]]
 
-HEADER = [["Number", "Surname", "Age"]]
+HEADER_ONLY = [["Number", "Surname", "Age"]]
 
-EMPTY = [[]]
+NO_HEADER = [[]]
+
+EMPTY_LIST = []
 
 STAFFS = [["Number", "First Name", "Surname", "Date of Birth"],
           [9297, "Andy", "O'Malley", "56"],
@@ -150,14 +152,14 @@ def test_union_graduates_header():
               [7432, "O'Malley", 39],
               [9824, "Darkes", 38]]
 
-    assert is_equal(result, union(GRADUATES, HEADER))
+    assert is_equal(result, union(GRADUATES, HEADER_ONLY))
 
 
 def test_intersection_graduates_header():
     """
     Test intersection operation.Table1 is the GRADUATES table; Table2 only has header, does not contain any record.
     """
-    assert intersection(GRADUATES, HEADER) is None
+    assert intersection(GRADUATES, HEADER_ONLY) is None
 
 
 def test_difference_graduates_header():
@@ -170,14 +172,14 @@ def test_difference_graduates_header():
               [7432, "O'Malley", 39],
               [9824, "Darkes", 38]]
 
-    assert is_equal(result, difference(GRADUATES, HEADER))
+    assert is_equal(result, difference(GRADUATES, HEADER_ONLY))
 
 
 def test_difference_header_graduates():
     """
     Test difference operation.Table1 only does not contain any record; Table2 is the GRADUATES table.
     """
-    assert difference(HEADER, GRADUATES) is None
+    assert difference(HEADER_ONLY, GRADUATES) is None
 
 
 # ===================================== Schema are different  =========================================================
@@ -224,7 +226,7 @@ def test_union_different_schema_2():
     Test union operation.Scheme are not the same. Table2 only has a header.
     """
     try:
-        union(MANAGERS, EMPTY)
+        union(MANAGERS, NO_HEADER)
     except MismatchedAttributesException:
         assert True
     else:
@@ -236,7 +238,7 @@ def test_intersection_different_schema_2():
     Test intersection operation. Scheme are not the same.Table2 is empty.
     """
     try:
-        intersection(MANAGERS, EMPTY)
+        intersection(MANAGERS, NO_HEADER)
     except MismatchedAttributesException:
         assert True
     else:
@@ -248,8 +250,35 @@ def test_difference_different_schema_2():
     Test difference operation. Scheme are not the same.Table2 is empty.
     """
     try:
-        difference(MANAGERS, EMPTY)
+        difference(MANAGERS, NO_HEADER)
     except MismatchedAttributesException:
         assert True
     else:
         assert False
+
+
+# =================================== table1 or table2 is an empty list ===============================================
+
+
+def test_union_graduates_empty():
+    """
+    Test union operation. Table1 is the GRADUATES table; Table2 is an empty list.
+    """
+
+    assert union(GRADUATES, EMPTY_LIST) is None
+
+
+def test_intersection_graduates_empty():
+    """
+    Test intersection operation.Table1 is the GRADUATES table; Table2 is an empty list.
+    """
+
+    assert intersection(GRADUATES, EMPTY_LIST) is None
+
+
+def test_difference_graduates_empty():
+    """
+    Test difference operation.Table1 is the GRADUATES table; Table2 is an empty list.
+    """
+
+    assert difference(GRADUATES, EMPTY_LIST) is None

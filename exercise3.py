@@ -26,13 +26,15 @@ def union(table1, table2):
         if tables t1 and t2 don't have the same attributes
     """
 
-    result = table1[:]
+    result = []
 
-    if check_headers(table1[0], table2[0]):  # use helper function to check schema.
-        for record in table2[1:]:            # if table2 has no record (only has a header), table2[1:] gives empty list
+    if (len(table1) > 0 and len(table2) > 0) and check_headers(table1[0], table2[0]):
+        # the following code will not execute if either table1 or table2 is empty or tables have different schema.
+        result = table1[:]
+        for record in table2[1:]:            # table2[1:] gives empty list, if table2 has no record/row
             if record not in result:
                 result.append(record)
-    if result > 1:
+    if len(result) > 1:
         return result
     return None
 
@@ -52,7 +54,7 @@ def intersection(table1, table2):
 
     result = []
 
-    if check_headers(table1[0], table2[0]):
+    if (len(table1) > 0 and len(table2) > 0) and check_headers(table1[0], table2[0]):
         for record in table1:
             if record in table2:
                 result.append(record)   # headers included after the first iteration
@@ -74,9 +76,10 @@ def difference(table1, table2):
         if tables t1 and t2 don't have the same attributes
     """
 
-    result = [table1[0]]    # headers included in the result if table1 and table2 has the same schema.
+    result = []
 
-    if check_headers(table1[0], table2[0]):
+    if (len(table1) > 0 and len(table2) > 0) and check_headers(table1[0], table2[0]):
+        result = [table1[0]]            # headers included in the result if table1 and table2 has the same schema.
         for record in table1:
             if record not in table2:
                 result.append(record)
