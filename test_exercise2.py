@@ -53,7 +53,7 @@ def test_find_added():
     # slicing notation gives empty result
     assert find("This is an ex-parrot", "parrot", 20, 25) == -1  # start index is out of range
     assert find("Happy anniversary", "ann", 17, 25) == -1
-    assert find("This is an ex-parrot", "parrot", 15, -6) == -1  # start index in the left side of the end index
+    assert find("This is an ex-parrot", "parrot", 15, -6) == -1  # start index in the right side of the end index
     assert find("This is an ex-parrot", "parrot", 20, 0) == -1
     assert find("Happy anniversary", "ann", 6, -11) == -1
     assert find("Happy anniversary", "ann", -5, -6) == -1
@@ -108,11 +108,3 @@ def test_multi_find_added():
     # word is separated by other notations; word is not wholly found.
     assert multi_find("N!i N!i N!i N!i!", "Ni", 0, 15) == ""
     assert multi_find("Happy anniversary Happy anniversary", "ann!", 0, 38) == ""
-
-
-
-
-
-
-
-
