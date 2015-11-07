@@ -33,7 +33,7 @@ def find(input_string, substring, start, end):
 
     for i in range(0, len(target_str) - len(substring) + 1):  # no need to check if len(remaining str) < len(substring)
         if target_str[i: i + len(substring)] == substring:    # compare strings in whole.
-            return i + len(input_string[:start])              # the index returned is a positive number.
+            return i + len(input_string[:start])              # the index returned is a positive number or 0.
 
     return -1
 
@@ -58,7 +58,7 @@ def multi_find(input_string, substring, start, end):
     i = find(input_string, substring, start, end)  # call function find to avoid code duplication.
     while i != -1:
         result += str(i) + ','
-        # search again from 1 position right of the previous index (to avoid infinite loop).
+        # search again from 1 position right to the previous index (to avoid infinite loop).
         i = find(input_string, substring, i + 1, end)
     if len(result):                               # condition is true if result is not an empty string, otherwise false.
         return result[:-1]                        # do not include the last comma
