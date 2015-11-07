@@ -39,7 +39,7 @@ def test_our_basic():
 
     # vowel at the end
     assert pig_latinify("who") == "owhay"
-    assert pig_latinify("these") == "esethay"
+    assert pig_latinify("the") == "ethay"
 
     # has more than one vowel
     assert pig_latinify("where") == "erewhay"
@@ -49,10 +49,11 @@ def test_our_basic():
     assert pig_latinify("why") == "whyay"
     assert pig_latinify("cry") == "cryay"
 
-    # word with vowel in middle with capitalization
+    # word with capitalization
     assert pig_latinify("World") == "orldWay"
     assert pig_latinify("Not") == "otNay"
 
-    # word with hyphen
+    # word with hyphen/dot
     assert pig_latinify("sugar-free") == "ugar-freesay"
     assert pig_latinify("good-hearted") == "ood-heartedgay"
+    assert pig_latinify("i.e.") == "i.e.yay"
